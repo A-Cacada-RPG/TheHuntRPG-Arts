@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Artes dos Fãs</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #121212;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Estilização das abas */
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0; /* Espaçamento acima e abaixo das abas */
+            margin: 0;
+            background-color: #1e1e1e;
+            border-bottom: 3px solid #8A2BE2;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        .tab-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #8A2BE2;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: #6A1BBE;
+        }
+
+        .tab-btn.active {
+            background-color: #4B0F8A;
+            font-weight: bold;
+            border-bottom: none;
+        }
+
+        /* Galeria */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px; /* Espaçamento entre as imagens */
+            padding: 20px;
+            justify-items: center;
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            border: 5px solid #8A2BE2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #8A2BE2;
+        }
+
+        .gallery-item .title {
+            margin-top: 15px; /* Espaço entre imagem e título */
+            font-size: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            display: flex;
+            align-items: flex-start; /* Alinha ao topo */
+            background-color: #1e1e1e;
+            border: 5px solid #8A2BE2;
+            width: 80%;
+            max-width: 900px;
+            max-height: 90%;
+            color: white;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .modal-image {
+            flex: 1;
+            max-width: 45%;
+            height: auto;
+            object-fit: contain;
+            border: 3px solid #8A2BE2;
+        }
+
+        .modal-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 15px;
+        }
+
+        .modal-info .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .modal-info .description {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #8A2BE2;
+        }
+
+        /* Oculta as abas por padrão */
+        .content {
+            display: none;
+        }
+
+        .content.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" class="tab-btn active" data-content-id="FanArts">FanArts</a></li>
+                <li><a href="#" class="tab-btn" data-content-id="ConceptArts">ConceptArts</a></li>
+                <li><a href="#" class="tab-btn" data-content-id="Artes">Artes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- FanArts -->
+    <section class="content show" id="FanArts">
+        <h1>FanArts</h1>
+        <div class="gallery">
+            <div class="gallery-item" onclick="openModal('DesenhoNeythanAzriel.jpg', 'Neythan & Azriel', 'Feita pelo sábio AlmaDeMagoBrasileiro.')">
+                <img src="DesenhoNeythanAzriel.jpg" alt="Arte 1">
+                <div class="title">Neythan & Azriel</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ConceptArts -->
+    <section class="content" id="ConceptArts">
+        <h1>ConceptArts</h1>
+        <div class="gallery">
+            <div class="gallery-item" onclick="openModal('Segredo.jpg', 'Segredo', 'Segredo.')">
+                <img src="Segredo.jpg" alt="Arte 1">
+                <div class="title">Captain</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('Topo_Procurado_olheira.png', 'Cartaz de Procurado (Topo)', 'Alguém escreveu: Se parece menos feio do que se parece na realidade hehe.')">
+                <img src="Topo_Procurado_olheira.png" alt="Arte 1">
+                <div class="title">Cartaz Topo</div>
+            </div>
+
+
+            <div class="gallery-item" onclick="openModal('Procurado_Lyandrys.jpg', 'Cartaz de Procurado (Lyandrys)', 'Alguém escreveu: Será que ele não corta o cabelo?.')">
+                <img src="Procurado_Lyandrys.jpg" alt="Arte 1">
+                <div class="title">Cartaz Lyandry's</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Artes -->
+    <section class="content" id="Artes">
+        <h1>Artes</h1>
+        <div class="gallery">
+            <div class="gallery-item" onclick="openModal('Topo & Lyandrys.jpg', 'Topo & Lyandrys', 'Alguém escreveu no desenho: Acho o Topo rabugento, mas uma boa alma e gentil. Já o Lyandrys tem um potencial daora pela frente.')">
+                <img src="Topo & Lyandrys.jpg" alt="Arte 1">
+                <div class="title">Topo & Lyandry's</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('Batedor Musguento Lorely.png', 'Lorely', 'Uma criatura perspicaz e sedenta, nativa de uma floresta de musgo.')">
+                <img src="Batedor Musguento Lorely.png" alt="Arte 1">
+                <div class="title">Lorely</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('SBM.jpg', 'Segredo', '?')">
+                <img src="SBM.jpg" alt="Arte 1">
+                <div class="title">SBM</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('Fayid e Demencia braço.png', 'Fayid e Demcia', 'Uma linda pintura, que me lembra que as vezes estou louco.')">
+                <img src="Fayid e Demencia braço.png" alt="Arte 1">
+                <div class="title">Fa'yid & Demência</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modal-image" class="modal-image" src="" alt="Imagem em destaque">
+            <div class="modal-info">
+                <div class="title" id="modal-title"></div>
+                <div class="description" id="modal-description"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(imageSrc, title, description) {
+            document.getElementById('modal-image').src = imageSrc;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-description').innerText = description;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(tab => tab.addEventListener('click', () => tabClicked(tab)));
+
+        function tabClicked(tab) {
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tab.classList.add('active');
+
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.classList.remove('show'));
+
+            const contentId = tab.getAttribute('data-content-id');
+            document.getElementById(contentId).classList.add('show');
+        }
+    </script>
+</body>
+</html>
